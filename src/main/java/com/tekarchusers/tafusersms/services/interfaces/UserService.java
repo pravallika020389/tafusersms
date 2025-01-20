@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserService {
     Users registerUser(Users user);
-    ResponseEntity<Object> getUserById(Long userId);
+    Users getUserById(Long userId);
+    void updateUser(Long userId, Users user);
 
 }

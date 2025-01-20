@@ -24,7 +24,14 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getUserById(@PathVariable("userId") Long id) {
-        return userService.getUserById(id);
+        Users user= userService.getUserById(id);
+        if (user != null) {
+
+            return ResponseEntity.ok(user);
+        } else {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found " + id);
+        }
     }
 
     @PutMapping("/{userId}")
@@ -39,7 +46,7 @@ public class UserController {
 
 
     @ExceptionHandler
-    public ResponseEntity<?> respondWithError(Exception e){
+    public ResponseEntity<?> respondWithError(Exception e) {
         return new ResponseEntity<>("Exception Occurred. More Info :"
                 + e.getMessage(), HttpStatus.BAD_REQUEST);
     }

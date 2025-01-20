@@ -27,24 +27,19 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public ResponseEntity<Object> getUserById(Long userId) {
-    Users user = restTemplate.getForObject(dataStore_User_Url + userId, Users.class);
-        if (user != null) {
-
-            return ResponseEntity.ok(user);
-        } else {
-
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found " + userId);
-        }
+    public Users getUserById(Long userId) {
+        return restTemplate.getForObject(dataStore_User_Url + userId, Users.class);
 
     }
 
-    public void updateUser(Long userId, Users user){
-        try{
-            restTemplate.put(dataStore_User_Url + userId,user);
-        } catch (HttpClientErrorException  e) {
+    @Override
+    public void updateUser(Long userId, Users user) {
+        try {
+            restTemplate.put(dataStore_User_Url + userId, user);
+        } catch (HttpClientErrorException e) {
             System.out.println("Error: " + e.getStatusCode());
         }
+
 
     }
 

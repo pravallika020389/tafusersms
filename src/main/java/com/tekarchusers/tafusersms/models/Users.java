@@ -13,11 +13,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {
-private Long id;
-     private String username;
-   private String email;
-   private String phoneNumber;
-   private LocalDate createdAt;
-   private LocalDate updatedAt;
-
+    private Long id;
+    private String username;
+    private String email;
+    private String phoneNumber;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }
