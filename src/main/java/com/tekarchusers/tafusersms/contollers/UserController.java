@@ -24,23 +24,30 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<Object> getUserById(@PathVariable("userId") Long id) {
-        Users user= userService.getUserById(id);
+        Users user = userService.getUserById(id);
         if (user != null) {
 
             return ResponseEntity.ok(user);
         } else {
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found " + id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + "  not found ");
         }
     }
 
     @PutMapping("/{userId}")
     public ResponseEntity<String> updateUser(@PathVariable("userId") Long id, @RequestBody Users user) {
-        try {
-            userService.updateUser(id, user);
-            return ResponseEntity.ok("User updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to update user");
+
+        Users RetrivedUser = userService.getUserById(id);
+        if (RetrivedUser != null) {
+            try {
+                userService.updateUser(id, user);
+                return ResponseEntity.ok("User updated successfully");
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to update user");
+            }
+        } else {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + "  not found ");
         }
     }
 
